@@ -40,6 +40,8 @@
             font-size: 1.1rem;
         }
         
+
+        
         .bingo-board {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -110,62 +112,130 @@
         <h1>🎯 DIGITAL LIFE BINGO</h1>
         <p class="subtitle">Find someone who... (Click to mark off!)</p>
         
-        <div class="bingo-board">
-            <div class="bingo-cell" onclick="toggleCell(this)">Has built a website before</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has never used TikTok</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has changed their online username</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Uses dark mode on everything</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has deleted a social media account</div>
-            
-            <div class="bingo-cell" onclick="toggleCell(this)">Has been in a Zoom meeting in pajamas</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has over 1000 unread emails</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Uses the same password for multiple accounts</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has tried to learn coding</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Still uses Facebook</div>
-            
-            <div class="bingo-cell" onclick="toggleCell(this)">Has bought something because of an online ad</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has made an online friend they've never met</div>
-            <div class="bingo-cell free-space">FREE SPACE<br>👋</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has binge-watched an entire series in one day</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has googled themselves</div>
-            
-            <div class="bingo-cell" onclick="toggleCell(this)">Has more than 5 streaming subscriptions</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Uses voice assistants (Alexa, Siri, etc.)</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has fallen for a clickbait article</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has started an online business or side hustle</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has used ChatGPT or AI tools</div>
-            
-            <div class="bingo-cell" onclick="toggleCell(this)">Has taken an online course</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has accidentally liked an old photo while stalking an ex</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has more than 50 browser bookmarks</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has used a dating app</div>
-            <div class="bingo-cell" onclick="toggleCell(this)">Has posted a photo of their food online</div>
+
+        
+        <div class="bingo-board" id="bingoBoard">
         </div>
         
-       
+
     </div>
     
     <script>
+        const allPrompts = [
+            "Has built a website before",
+            "Has never used TikTok",
+            "Has changed their online username",
+            "Uses dark mode on everything",
+            "Has deleted a social media account",
+            "Has been in a Zoom meeting in pajamas",
+            "Has over 1000 unread emails",
+            "Uses the same password for multiple accounts",
+            "Has tried to learn coding",
+            "Still uses Facebook",
+            "Has bought something because of an online ad",
+            "Has made an online friend they've never met",
+            "Has binge-watched an entire series in one day",
+            "Has googled themselves",
+            "Has more than 5 streaming subscriptions",
+            "Uses voice assistants (Alexa, Siri, etc.)",
+            "Has fallen for a clickbait article",
+            "Has started an online business or side hustle",
+            "Has used ChatGPT or AI tools",
+            "Has taken an online course",
+            "Has accidentally liked an old photo while stalking",
+            "Has more than 50 browser bookmarks",
+            "Has used a dating app",
+            "Has posted a photo of their food online",
+            "Has forgotten a password and had to reset it",
+            "Has ordered groceries online",
+            "Has participated in a viral challenge",
+            "Has used a QR code menu at a restaurant",
+            "Has had their phone die during an important conversation",
+            "Has used airplane mode to avoid someone",
+            "Has pretended to have bad wifi to end a call",
+            "Has fallen asleep while on a video call",
+            "Has used a fake name online",
+            "Has created a playlist with over 100 songs",
+            "Has taken a screenshot of a conversation",
+            "Has used incognito/private browsing mode",
+            "Has had a tweet or post go viral (100+ likes/shares)",
+            "Has bought cryptocurrency",
+            "Has used a VPN",
+            "Has been locked out of an account due to too many failed attempts",
+            "Has used Google Maps to avoid talking to someone",
+            "Has pretended to text to avoid social interaction",
+            "Has used 'Hey Google' or 'Hey Siri' in public",
+            "Has online shopped while drunk/tired and regretted it",
+            "Has been in an online argument with a stranger",
+            "Has used Wikipedia as a source for a paper/project",
+            "Has saved memes to their phone",
+            "Has used ride-sharing apps (Uber, Lyft)",
+            "Has video called someone while multitasking",
+            "Has used delivery apps for food"
+        ];
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function generateNewBoard() {
+            const bingoBoard = document.getElementById('bingoBoard');
+            bingoBoard.innerHTML = '';
+            
+            // Shuffle and pick 24 random prompts
+            const shuffledPrompts = shuffleArray(allPrompts);
+            const selectedPrompts = shuffledPrompts.slice(0, 24);
+            
+            // Create 25 cells (24 prompts + 1 free space)
+            for (let i = 0; i < 25; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'bingo-cell';
+                
+                if (i === 12) { // Middle cell (index 12) is the free space
+                    cell.textContent = 'FREE SPACE 👋';
+                    cell.classList.add('free-space');
+                } else {
+                    const promptIndex = i < 12 ? i : i - 1; // Adjust index for free space
+                    cell.textContent = selectedPrompts[promptIndex];
+                    cell.onclick = () => toggleCell(cell);
+                }
+                
+                bingoBoard.appendChild(cell);
+            }
+            
+            // Add hover effects to new cells
+            addHoverEffects();
+        }
+
         function toggleCell(cell) {
             if (!cell.classList.contains('free-space')) {
                 cell.classList.toggle('marked');
             }
         }
         
-        // Add some fun interactions
-        document.querySelectorAll('.bingo-cell').forEach(cell => {
-            cell.addEventListener('mouseenter', function() {
-                if (!this.classList.contains('free-space') && !this.classList.contains('marked')) {
-                    this.style.background = '#edf2f7';
-                }
+        function addHoverEffects() {
+            document.querySelectorAll('.bingo-cell').forEach(cell => {
+                cell.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('free-space') && !this.classList.contains('marked')) {
+                        this.style.background = '#edf2f7';
+                    }
+                });
+                
+                cell.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('free-space') && !this.classList.contains('marked')) {
+                        this.style.background = 'white';
+                    }
+                });
             });
-            
-            cell.addEventListener('mouseleave', function() {
-                if (!this.classList.contains('free-space') && !this.classList.contains('marked')) {
-                    this.style.background = 'white';
-                }
-            });
-        });
+        }
+        
+        // Generate initial board when page loads
+        generateNewBoard();
     </script>
 </body>
 </html>
