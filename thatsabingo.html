@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Life Human Bingo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .bingo-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 3px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            padding: 3px;
+        }
+        
+        .bingo-cell {
+            background: white;
+            padding: 15px 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2d3748;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.3;
+        }
+        
+        .bingo-cell:hover {
+            background: #f7fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .bingo-cell.marked {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            transform: scale(0.95);
+        }
+        
+        .free-space {
+            background: linear-gradient(135deg, #ed8936, #dd6b20) !important;
+            color: white !important;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .instructions {
+            text-align: center;
+            margin-top: 20px;
+            color: #4a5568;
+            font-style: italic;
+        }
+        
+        @media (max-width: 600px) {
+            .bingo-cell {
+                font-size: 0.8rem;
+                padding: 12px 8px;
+                min-height: 70px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 DIGITAL LIFE BINGO</h1>
+        <p class="subtitle">Find someone who... (Click to mark off!)</p>
+        
+        <div class="bingo-board">
+            <div class="bingo-cell" onclick="toggleCell(this)">Has built a website before</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has never used TikTok</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has changed their online username</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Uses dark mode on everything</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has deleted a social media account</div>
+            
+            <div class="bingo-cell" onclick="toggleCell(this)">Has been in a Zoom meeting in pajamas</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has over 1000 unread emails</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Uses the same password for multiple accounts</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has tried to learn coding</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Still uses Facebook</div>
+            
+            <div class="bingo-cell" onclick="toggleCell(this)">Has bought something because of an online ad</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has made an online friend they've never met</div>
+            <div class="bingo-cell free-space">FREE SPACE<br>👋</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has binge-watched an entire series in one day</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has googled themselves</div>
+            
+            <div class="bingo-cell" onclick="toggleCell(this)">Has more than 5 streaming subscriptions</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Uses voice assistants (Alexa, Siri, etc.)</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has fallen for a clickbait article</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has started an online business or side hustle</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has used ChatGPT or AI tools</div>
+            
+            <div class="bingo-cell" onclick="toggleCell(this)">Has taken an online course</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has accidentally liked an old photo while stalking an ex</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has more than 50 browser bookmarks</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has used a dating app</div>
+            <div class="bingo-cell" onclick="toggleCell(this)">Has posted a photo of their food online</div>
+        </div>
+        
+       
+    </div>
+    
+    <script>
+        function toggleCell(cell) {
+            if (!cell.classList.contains('free-space')) {
+                cell.classList.toggle('marked');
+            }
+        }
+        
+        // Add some fun interactions
+        document.querySelectorAll('.bingo-cell').forEach(cell => {
+            cell.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('free-space') && !this.classList.contains('marked')) {
+                    this.style.background = '#edf2f7';
+                }
+            });
+            
+            cell.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('free-space') && !this.classList.contains('marked')) {
+                    this.style.background = 'white';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
