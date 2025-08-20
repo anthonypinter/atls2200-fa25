@@ -222,7 +222,8 @@
             document.querySelectorAll('.bingo-cell').forEach(cell => {
                 cell.addEventListener('mouseenter', function() {
                     if (!this.classList.contains('free-space') && !this.classList.contains('marked')) {
-                        this.style.background = '#edf2f7';
+                        this.style.background = 'linear-gradient(135deg, #ed8936, #dd6b20)';
+                        this.style.color = '#000';
                     }
                 });
                 
