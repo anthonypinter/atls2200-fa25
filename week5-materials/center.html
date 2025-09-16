@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        /* Single Items */
+.center-single {
+  display: flex;
+  justify-content: center;    /* horizontal centering */
+  align-items: center;        /* vertical centering */
+  height: 200px;
+  background: #e3f2fd;
+  border: 2px dashed #1976d2;
+}
+
+.center-single .item {
+  background: #1976d2;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+}
+
+/* Multiple Items */
+
+.center-multiple {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;                  /* space between buttons */
+  height: 120px;
+  background: #f3e5f5;
+  border: 2px dashed #7b1fa2;
+}
+
+.center-multiple button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #7b1fa2;
+  color: white;
+  cursor: pointer;
+}
+
+/* Distributed Spacing */
+
+.center-distributed {
+  display: flex;
+  justify-content: space-evenly;  /* equal space around items */
+  align-items: center;
+  height: 120px;
+  background: #e8f5e8;
+  border: 2px dashed #388e3c;
+}
+
+.center-distributed .feature {
+  background: #388e3c;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* Center Text Content */
+
+.center-text {
+  display: flex;
+  flex-direction: column;     /* stack items vertically */
+  justify-content: center;    /* center vertically */
+  align-items: center;        /* center horizontally */
+  text-align: center;         /* center text within elements */
+  min-height: 200px;
+  background: #fff3e0;
+  border: 2px dashed #f57c00;
+  padding: 2rem;
+}
+
+.center-text h2 {
+  margin: 0 0 1rem 0;
+  color: #f57c00;
+}
+
+.center-text p {
+  margin: 0;
+  color: #666;
+  max-width: 400px;
+}
+    </style>
+</head>
+<body>
+    <!-- Example 1: Single Item -- Login forms, hero content, loading spinners -->
+<div class="center-single">
+  <div class="item">Welcome Message</div>
+</div>
+
+<!-- Example 2: Multiple Items -- Button groups, social media icons -->
+<div class="center-multiple">
+  <button>Save</button>
+  <button>Cancel</button>
+  <button>Delete</button>
+</div>
+
+<!-- Example 3: Distributed Spacing -- Nav items, feature highlights -->
+<div class="center-distributed">
+  <div class="feature">Fast</div>
+  <div class="feature">Reliable</div>
+  <div class="feature">Secure</div>
+</div>
+
+<!-- Example 4: Text Content -- Card content, testimonials, call-to-action sections -->
+<div class="center-text">
+  <h2>Community Resources</h2>
+  <p>Everything you need to connect with local services and support.</p>
+</div>
+
+<!-- When to use each approach:
+✓ Single item → justify-content + align-items: center
+✓ Multiple items, touching → center + gap
+✓ Multiple items, spread out → space-around/space-evenly  
+✓ Text content → add flex-direction: column + text-align: center -->
+
+</body>
+</html>
