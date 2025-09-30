@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container Query Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .demo-header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .explanation {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Container for container query demo */
+        .container-demo {
+            container-type: inline-size;
+            container-name: card-container;
+            background: white;
+            border: 3px solid #4CAF50;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            resize: horizontal;
+            overflow: auto;
+            min-width: 200px;
+            max-width: 100%;
+        }
+
+        .container-label {
+            background: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Regular div for media query demo */
+        .media-demo {
+            background: white;
+            border: 3px solid #2196F3;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .media-label {
+            background: #2196F3;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Card Component - Container Query Version */
+        .card {
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .card-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        /* Container Queries - Card adapts to its container */
+        @container card-container (min-width: 400px) {
+            .card {
+                display: grid;
+                grid-template-columns: 200px 1fr;
+            }
+
+            .card-image {
+                height: 100%;
+            }
+
+            .card-content {
+                padding: 20px;
+            }
+
+            .card-title {
+                font-size: 20px;
+            }
+        }
+
+        @container card-container (min-width: 600px) {
+            .card-content {
+                padding: 30px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .card-description {
+                font-size: 16px;
+            }
+        }
+
+        /* Media Query Version - Card adapts to viewport */
+        .card-media {
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .card-media .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .card-media .card-content {
+            padding: 15px;
+        }
+
+        .card-media .card-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .card-media .card-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        /* Media queries - only respond to viewport width */
+        @media (min-width: 768px) {
+            .card-media {
+                display: grid;
+                grid-template-columns: 200px 1fr;
+            }
+
+            .card-media .card-image {
+                height: 100%;
+            }
+
+            .card-media .card-content {
+                padding: 20px;
+            }
+
+            .card-media .card-title {
+                font-size: 20px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .card-media .card-content {
+                padding: 30px;
+            }
+
+            .card-media .card-title {
+                font-size: 24px;
+            }
+
+            .card-media .card-description {
+                font-size: 16px;
+            }
+        }
+
+        .instruction {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+
+        .instruction strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comparison-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .comparison-box h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .comparison-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .comparison-box li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-box li:before {
+            content: "✓ ";
+            color: #4CAF50;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>Container Query vs Media Query Demo</h1>
+        <p class="explanation">
+            This demo shows the difference between container queries and media queries. 
+            Container queries allow components to adapt based on their container's size, 
+            not the viewport size.
+        </p>
+    </div>
+
+    <div class="instruction">
+        <strong>👉 Try This:</strong>
+        Drag the bottom-right corner of the GREEN box to resize it. Notice how the card layout changes 
+        based on the container width, NOT the browser window width.
+    </div>
+
+    <div class="container-demo">
+        <span class="container-label">CONTAINER QUERY (Resize Me! →)</span>
+        <div class="card">
+            <div class="card-image">Product Image</div>
+            <div class="card-content">
+                <h2 class="card-title">Container Query Card</h2>
+                <p class="card-description">
+                    This card uses container queries. It adapts based on the width of its 
+                    parent container, making it perfect for component libraries and flexible layouts.
+                </p>
+                <div class="card-meta">
+                    <span class="card-tag">Flexible</span>
+                    <span class="card-tag">Reusable</span>
+                    <span class="card-tag">Modern</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="instruction">
+        <strong>📱 Compare:</strong>
+        The BLUE box below uses media queries. It only changes when you resize the entire browser window, 
+        not when you resize the container.
+    </div>
+
+    <div class="media-demo">
+        <span class="media-label">MEDIA QUERY (Resize Browser Window)</span>
+        <div class="card-media">
+            <div class="card-image">Product Image</div>
+            <div class="card-content">
+                <h2 class="card-title">Media Query Card</h2>
+                <p class="card-description">
+                    This card uses media queries. It only adapts based on the viewport width, 
+                    which can be limiting when used in sidebars or flexible grid layouts.
+                </p>
+                <div class="card-meta">
+                    <span class="card-tag">Traditional</span>
+                    <span class="card-tag">Viewport-based</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="comparison">
+        <div class="comparison-box">
+            <h3>When to Use Container Queries</h3>
+            <ul>
+                <li>Component libraries (Design Systems)</li>
+                <li>Reusable UI components</li>
+                <li>Sidebar widgets</li>
+                <li>Cards in flexible grids</li>
+                <li>Components that appear in various contexts</li>
+            </ul>
+        </div>
+        <div class="comparison-box">
+            <h3>When to Use Media Queries</h3>
+            <ul>
+                <li>Overall page layout</li>
+                <li>Navigation menus</li>
+                <li>Global typography changes</li>
+                <li>Viewport-specific features</li>
+                <li>Mobile vs desktop experiences</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

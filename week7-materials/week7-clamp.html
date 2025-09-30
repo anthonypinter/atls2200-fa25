@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Typography Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .demo-header {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .demo-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+        }
+
+        .instruction {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .instruction strong {
+            color: #1976d2;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Demo Section Styles */
+        .demo-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .demo-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+
+        /* clamp() Demo */
+        .clamp-demo {
+            border: 2px dashed #4CAF50;
+            padding: 30px;
+            margin: 20px 0;
+            background: #f1f8f4;
+            border-radius: 8px;
+        }
+
+        .clamp-title {
+            font-size: clamp(1rem, 2.5vw, 2rem);
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .clamp-text {
+            font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+            color: #555;
+        }
+
+        .code-display {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+
+        .code-display .comment {
+            color: #80cbc4;
+        }
+
+        /* Fixed Size Demo for Comparison */
+        .fixed-demo {
+            border: 2px dashed #f44336;
+            padding: 30px;
+            margin: 20px 0;
+            background: #ffebee;
+            border-radius: 8px;
+        }
+
+        .fixed-title {
+            font-size: 24px; /* Fixed size - doesn't scale */
+            color: #c62828;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .fixed-text {
+            font-size: 16px; /* Fixed size */
+            color: #555;
+        }
+
+        /* Viewport Units Demo */
+        .viewport-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .viewport-card {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .viewport-card h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .vw-example {
+            font-size: 3vw; /* 3% of viewport width */
+            color: #e91e63;
+            font-weight: bold;
+            padding: 15px;
+            background: #fce4ec;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .vh-example {
+            font-size: 3vh; /* 3% of viewport height */
+            color: #9c27b0;
+            font-weight: bold;
+            padding: 15px;
+            background: #f3e5f5;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .vmin-example {
+            font-size: 3vmin; /* 3% of smaller dimension */
+            color: #ff9800;
+            font-weight: bold;
+            padding: 15px;
+            background: #fff3e0;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .vmax-example {
+            font-size: 3vmax; /* 3% of larger dimension */
+            color: #009688;
+            font-weight: bold;
+            padding: 15px;
+            background: #e0f2f1;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .unit-explanation {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        /* Interactive Comparison */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comparison-box {
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+
+        .good {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .bad {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+
+        .comparison-box h3 {
+            margin-bottom: 15px;
+        }
+
+        .good h3 {
+            color: #2e7d32;
+        }
+
+        .bad h3 {
+            color: #c62828;
+        }
+
+        .info-box {
+            background: #fff8e1;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: #f57c00;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .info-box li {
+            margin: 8px 0;
+        }
+
+        .current-size {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1976d2;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 1000;
+        }
+
+        .current-size div {
+            margin: 3px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>Responsive Typography with clamp() & Viewport Units</h1>
+        <p>Resize your browser window to see how text scales fluidly!</p>
+    </div>
+
+    <div class="instruction">
+        <strong>📐 Interactive Demo:</strong>
+        Resize your browser window (make it narrower and wider) to see how different typography approaches respond. 
+        Watch the viewport size indicator in the bottom-right corner.
+    </div>
+
+    <!-- clamp() Function Demo -->
+    <div class="demo-section">
+        <h2>1. The clamp() Function</h2>
+        
+        <div class="comparison-grid">
+            <div class="comparison-box good">
+                <h3>✓ With clamp() - Fluid Scaling</h3>
+                <div class="clamp-demo">
+                    <div class="clamp-title">
+                        This Title Uses clamp()
+                    </div>
+                    <p class="clamp-text">
+                        This text scales smoothly between minimum and maximum values. 
+                        It never gets too small or too large, ensuring readability across all screen sizes.
+                    </p>
+                </div>
+                <div class="code-display">
+<span class="comment">/* min, preferred, max */</span>
+font-size: clamp(1rem, 2.5vw, 2rem);
+                </div>
+            </div>
+
+            <div class="comparison-box bad">
+                <h3>✗ Fixed Size - No Scaling</h3>
+                <div class="fixed-demo">
+                    <div class="fixed-title">
+                        This Title is Fixed
+                    </div>
+                    <p class="fixed-text">
+                        This text stays the same size regardless of screen width. 
+                        On mobile, it might be too large. On large screens, it might look tiny.
+                    </p>
+                </div>
+                <div class="code-display">
+<span class="comment">/* Always 24px - never changes */</span>
+font-size: 24px;
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>How clamp() Works:</h3>
+            <div class="code-display" style="margin: 15px 0;">
+font-size: clamp(MIN, PREFERRED, MAX);
+            </div>
+            <ul>
+                <li><strong>MIN (1rem):</strong> Smallest size the text can be (prevents text from being unreadable)</li>
+                <li><strong>PREFERRED (2.5vw):</strong> The ideal size that scales with viewport (fluid)</li>
+                <li><strong>MAX (2rem):</strong> Largest size the text can be (prevents text from being huge)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Viewport Units Demo -->
+    <div class="demo-section">
+        <h2>2. Viewport Units (vw, vh, vmin, vmax)</h2>
+        
+        <div class="viewport-demo">
+            <div class="viewport-card">
+                <h3>vw (Viewport Width)</h3>
+                <div class="vw-example">3vw Text</div>
+                <div class="code-display">
+font-size: 3vw;
+                </div>
+                <p class="unit-explanation">
+                    3% of viewport width. Gets bigger when you make the window wider.
+                    <strong>Changes with:</strong> Window width only
+                </p>
+            </div>
+
+            <div class="viewport-card">
+                <h3>vh (Viewport Height)</h3>
+                <div class="vh-example">3vh Text</div>
+                <div class="code-display">
+font-size: 3vh;
+                </div>
+                <p class="unit-explanation">
+                    3% of viewport height. Gets bigger when you make the window taller.
+                    <strong>Changes with:</strong> Window height only
+                </p>
+            </div>
+
+            <div class="viewport-card">
+                <h3>vmin (Viewport Minimum)</h3>
+                <div class="vmin-example">3vmin Text</div>
+                <div class="code-display">
+font-size: 3vmin;
+                </div>
+                <p class="unit-explanation">
+                    3% of the <em>smaller</em> dimension (width or height).
+                    <strong>Use for:</strong> Elements that should scale proportionally
+                </p>
+            </div>
+
+            <div class="viewport-card">
+                <h3>vmax (Viewport Maximum)</h3>
+                <div class="vmax-example">3vmax Text</div>
+                <div class="code-display">
+font-size: 3vmax;
+                </div>
+                <p class="unit-explanation">
+                    3% of the <em>larger</em> dimension (width or height).
+                    <strong>Use for:</strong> Hero text, splash screens
+                </p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>⚠️ Viewport Units Alone Can Be Problematic:</h3>
+            <ul>
+                <li><strong>Too small on mobile:</strong> 2vw on a 320px phone = 6.4px (unreadable!)</li>
+                <li><strong>Too large on desktop:</strong> 2vw on a 2560px monitor = 51.2px (huge!)</li>
+                <li><strong>Solution:</strong> Use clamp() to set boundaries!</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Best Practices -->
+    <div class="demo-section">
+        <h2>3. Best Practices for Responsive Typography</h2>
+
+        <div class="info-box">
+            <h3>✓ Recommended Approaches:</h3>
+            <div class="code-display">
+<span class="comment">/* Headings - scales between 24px and 48px */</span>
+h1 { font-size: clamp(1.5rem, 4vw, 3rem); }
+
+<span class="comment">/* Body text - scales between 16px and 20px */</span>
+body { font-size: clamp(1rem, 1.5vw, 1.25rem); }
+
+<span class="comment">/* Small text - scales between 14px and 16px */</span>
+.small { font-size: clamp(0.875rem, 1.2vw, 1rem); }
+            </div>
+        </div>
+
+        <div class="comparison-grid">
+            <div class="comparison-box good">
+                <h3>✓ DO: Use clamp() for Fluid Typography</h3>
+                <ul style="margin-left: 20px; color: #555;">
+                    <li>Scales smoothly across all screens</li>
+                    <li>Maintains readability</li>
+                    <li>Reduces need for media queries</li>
+                    <li>Better user experience</li>
+                </ul>
+            </div>
+
+            <div class="comparison-box bad">
+                <h3>✗ DON'T: Use Pure Viewport Units</h3>
+                <ul style="margin-left: 20px; color: #555;">
+                    <li>Can become unreadable on small screens</li>
+                    <li>Can be too large on big screens</li>
+                    <li>Accessibility issues</li>
+                    <li>Fails WCAG guidelines</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-box" style="background: #e8f5e9; border-color: #4caf50;">
+            <h3 style="color: #2e7d32;">🎯 Real-World Use Cases:</h3>
+            <ul>
+                <li><strong>Hero headings:</strong> clamp(2rem, 5vw, 4rem)</li>
+                <li><strong>Section titles:</strong> clamp(1.5rem, 3vw, 2.5rem)</li>
+                <li><strong>Body text:</strong> clamp(1rem, 1.5vw, 1.125rem)</li>
+                <li><strong>Card content:</strong> clamp(0.875rem, 1.2vw, 1rem)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Live Viewport Size Display -->
+    <div class="current-size">
+        <div><strong>Viewport Size:</strong></div>
+        <div id="width"></div>
+        <div id="height"></div>
+        <div id="vmin"></div>
+        <div id="vmax"></div>
+    </div>
+
+    <script>
+        function updateViewportInfo() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const vmin = Math.min(width, height);
+            const vmax = Math.max(width, height);
+
+            document.getElementById('width').textContent = `Width: ${width}px (1vw = ${(width/100).toFixed(2)}px)`;
+            document.getElementById('height').textContent = `Height: ${height}px (1vh = ${(height/100).toFixed(2)}px)`;
+            document.getElementById('vmin').textContent = `vmin: ${vmin}px (1vmin = ${(vmin/100).toFixed(2)}px)`;
+            document.getElementById('vmax').textContent = `vmax: ${vmax}px (1vmax = ${(vmax/100).toFixed(2)}px)`;
+        }
+
+        // Update on load and resize
+        updateViewportInfo();
+        window.addEventListener('resize', updateViewportInfo);
+    </script>
+</body>
+</html>

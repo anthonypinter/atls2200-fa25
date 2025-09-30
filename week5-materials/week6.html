@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .parent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            width: 315px;
+            grid-template-areas: 
+                "overall-nav1 course-nav1 main1"
+                "overall-nav2 course-nav2 main2"
+            ;
+        }
+
+        .box {
+            border: 2px solid black;
+            height: 100px;
+            width: 100px;
+        }
+
+        #one {
+            background-color: red;
+            grid-area: main2;
+            
+        }
+
+        #two {
+            background-color: blue;
+            grid-area: course-nav2;
+        }
+
+        #three {
+            background-color: green;
+            grid-area: overall-nav1;
+        }
+
+        #four {
+            background-color: yellow;
+            grid-area: overall-nav2;
+        }
+
+        #five {
+            background-color: orange;
+            grid-area: course-nav1;
+        }
+
+        #six {
+            background-color: burlywood;
+            
+            grid-area: main1;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="parent-grid">
+        <div class="box" id="one"></div>
+        <div class="box" id="two"></div>
+        <div class="box" id="three"></div>
+        <div class="box" id="four"></div>
+        <div class="box" id="five"></div>
+        <div class="box" id="six"></div>
+    </div>
+
+    <div class="demo-container">
+  <button id="demo-btn">Click Me!</button>
+  <input type="text" id="demo-input" placeholder="Type something...">
+  <div class="demo-box">Hover over me</div>
+</div>
+
+<div id="grandparent">
+  <div id="parent">
+    <button id="child">Click Me!</button>
+  </div>
+</div>
+<script>
+    document.getElementById('grandparent').addEventListener('click', () => {
+  console.log('Grandparent clicked!');
+});
+
+document.getElementById('parent').addEventListener('click', () => {
+  console.log('Parent clicked!');
+});
+
+document.getElementById('child').addEventListener('click', () => {
+  console.log('Button clicked!');
+});
+
+    let box1 = document.querySelector('#one').addEventListener('click', message);
+
+    function message() {
+        alert("This is a message");
+    }
+
+    // Get all interactive elements
+const button = document.getElementById('demo-btn');
+const input = document.getElementById('demo-input');
+const box = document.querySelector('.demo-box');
+
+// Universal event logger function
+function logEventDetails(event) {
+  console.log('=== EVENT DETAILS ===');
+  console.log('Event Type:', event.type);
+  console.log('Target Element:', event.target);
+  console.log('Target Tag:', event.target.tagName);
+  console.log('Target ID:', event.target.id);
+  console.log('Target Classes:', event.target.className);
+  console.log('Current Time:', new Date().toLocaleTimeString());
+  console.log('--- End Event ---\n');
+}
+
+// Add event listeners to demonstrate different event types
+button.addEventListener('click', logEventDetails);
+input.addEventListener('input', logEventDetails);
+input.addEventListener('focus', logEventDetails);
+input.addEventListener('blur', logEventDetails);
+box.addEventListener('mouseover', logEventDetails);
+box.addEventListener('mouseout', logEventDetails);
+</script>
+</body>
+</html>
+
+<!-- Line 1   Line 2   Line 3   Line 4
+  |        |        |        |
+  |  Col1  |  Col2  |  Col3  |  <- Row Track 1
+  |        |        |        |
+Line 1 ────────────────────────── Line 2
+  |        |        |        |
+  |  Col1  |  Col2  |  Col3  |  <- Row Track 2
+  |        |        |        |
+Line 2 ────────────────────────── Line 3 -->
